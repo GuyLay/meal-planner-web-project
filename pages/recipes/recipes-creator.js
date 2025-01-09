@@ -37,6 +37,10 @@ export default function RecipeCreator() {
     };
 
     const removeIngredient = (index) => {
+        if (index === 0 && ingredients.length === 1) {
+            alert("Recipe must have at least one ingredient");
+            return;
+        }
         setIngredients(ingredients.filter((_, i) => i !== index));
     };
 
@@ -45,6 +49,10 @@ export default function RecipeCreator() {
     };
 
     const removeInstruction = (index) => {
+        if (index === 0 && instructions.length === 1) {
+            alert("Recipe must have at least one instruction");
+            return;
+        }
         setInstructions(instructions.filter((_, i) => i !== index));
     };
 
