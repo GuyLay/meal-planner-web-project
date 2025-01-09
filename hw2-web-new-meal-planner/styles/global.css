@@ -1,0 +1,313 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Color Variables */
+:root {
+    --light-orange: #ffbd59;
+    --highlight-orange: #ff914d;
+    --dropdown-bg-light: #fff;
+    --dropdown-bg-dark: #111010;
+    --dropdown-text-light: #2b2929;
+    --dropdown-text-dark: #ffffff;
+    --dropdown-hover-bg-light: rgba(255, 145, 77, 0.1);
+    --dropdown-hover-bg-dark: rgba(255, 145, 77, 0.2);
+}
+
+.dark * {
+    background-color: var(--dropdown-bg-dark);
+    color: #ffffff;
+}
+
+/* Header & Footer */
+header, footer {
+    background-color: #ffffff;
+    color: rgb(34, 32, 32);
+    padding: 1rem 0;
+}
+
+.dark header, .dark footer {
+    background-color: var(--dropdown-bg-dark);
+    color: #ffffff;
+}
+
+.nav-link.active {
+    color: #ff914d;
+}
+
+/* Main Buttons Design */
+.btn {
+    background-color: #2b2929;
+    color: rgb(255, 255, 255);
+    padding: 0.5rem 1.0rem;
+    border: 2px solid #2b2929;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    width: 115px;
+    text-align: center;
+}
+
+.dark .btn {
+    background-color: #ffffff;
+    color: black;
+    border-color: #ff914d;
+}
+
+.btn:hover {
+    background-color: #ff914d;
+    color: white;
+    border-color: #ff914d;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark .btn:hover {
+    background-color: #ff914d;
+    color: white;
+    border-color: #ff914d;
+}
+
+.add-btn {
+    background-color: var(--highlight-orange);
+    color: white;
+    padding: 0.1rem 0.1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+  
+  .add-btn:hover {
+    background-color: var(--light-orange);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Auth Buttons Container */
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+/* Navigation Links */
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #2b2929;
+    padding: 0.5rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--highlight-orange);
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    left: 0;
+    width: 100%;
+}
+
+nav ul li a:hover {
+    color: var(--highlight-orange);
+}
+
+.nav-link.active {
+    color: var(--highlight-orange);
+    font-weight: bold;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--highlight-orange);
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    position: absolute;
+    display: none;
+    min-width: 200px;
+    background-color: var(--dropdown-bg-light);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    z-index: 10;
+    top: 100%;
+    left: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .dropdown-menu {
+    background-color: var(--dropdown-bg-dark);
+    color: var(--dropdown-text-dark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.group:hover .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu ul li {
+    margin: 0;
+}
+
+.dropdown-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--dropdown-text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.dark .dropdown-link {
+    color: var(--dropdown-text-dark);
+}
+
+.dropdown-link:hover {
+    color: var(--highlight-orange);
+    background-color: var(--dropdown-hover-bg-light);
+    border-radius: 4px;
+}
+
+.dark .dropdown-link:hover {
+    background-color: var(--dropdown-hover-bg-dark);
+}
+
+.nav-link-with-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dropdown-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 4px;
+    border: solid currentColor;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.group:hover .dropdown-indicator {
+    transform: rotate(-135deg);
+}
+
+.dark .dropdown-indicator {
+    color: var(--dropdown-text-dark);
+}
+
+/* Recipe Box Container */
+.recipe-box {
+    background-color: white;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow around the box */
+    border-radius: 12px; /* Slightly rounded corners */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+    .dark .recipe-box {
+        background-color: var(--dropdown-bg-dark);
+        color: #ffffff;
+        box-shadow: 2px 2px 6px #ffffff;
+    }
+
+  .recipe-box:hover {
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    transform: scale(1.05); /* Gentle scaling effect */
+  }
+
+  .dark .recipe-box:hover {
+    box-shadow: 4px 4px 12px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Recipe Image Container */
+  .recipe-box-image {
+    width: 100%;
+    height: 10rem; /* Height for the image box */
+    background-color: #e5e7eb; /* Light gray for placeholder */
+    border-radius: 8px; /* Matches the box's rounding */
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .recipe-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the box proportionally */
+    border-radius: 8px;
+  }
+  
+  /* Placeholder Text */
+  .placeholder-text {
+    color: #9ca3af; /* Subtle gray for placeholder text */
+    font-size: 0.875rem; /* Tailwind text-sm equivalent */
+  }
+  
+  /* Recipe Title */
+  .recipe-box-title {
+    font-size: 1.25rem; /* Tailwind text-xl */
+    font-weight: 600; /* Tailwind font-semibold */
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Recipe Time */
+  .recipe-box-time {
+    color: #6b7280; /* Tailwind gray-600 */
+    font-size: 0.875rem; /* Tailwind text-sm */
+  }
+
+  .dark .recipe-box-time {
+    color: #ffffff;
+  }
+  
