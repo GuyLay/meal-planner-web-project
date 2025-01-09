@@ -1,5 +1,5 @@
 // pages/api/recipes/index.js
-import { connectToDatabase } from "../../../lib/db";
+import { connectToDatabase } from "@/lib/db";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {

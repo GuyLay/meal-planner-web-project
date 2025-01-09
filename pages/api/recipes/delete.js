@@ -1,5 +1,5 @@
 // pages/api/recipes/delete.js
-import { connectToDatabase } from "../../../lib/db";
+import { connectToDatabase } from "@/lib/db";
 import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {

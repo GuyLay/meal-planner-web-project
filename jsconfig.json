@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // Set the root directory of your project
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"] // Map the alias "@/..." to the root folder
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }
