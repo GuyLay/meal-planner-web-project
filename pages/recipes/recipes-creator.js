@@ -41,6 +41,7 @@ export default function RecipeCreator() {
         if (value === 0) return value;
         if (value[0] === "0") {
             value = value.slice(1);
+            return value;
         }
     }
 
