@@ -2,7 +2,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <main className="flex-grow container mx-auto py-8 dark:bg-gray-900 transition-colors duration-200">
+    <main className="flex-grow container mx-auto py-8 transition-colors duration-200">
       <section className="flex flex-col lg:flex-row items-center justify-center gap-16 py-20 px-8">
         {/* Text Section */}
         <div className="lg:w-1/2 text-center lg:text-left">
