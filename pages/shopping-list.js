@@ -25,6 +25,169 @@ export default function ShoppingList() {
     }
   };
 
+  const listDisplay = (list) => {
+    return (
+      <div key={list._id} className="bg-white rounded-lg shadow-md p-6 relative">
+              <div className="absolute right-2 top-2 text-red-500 font-bold text-3xl cursor-pointer group z-10">
+              <button
+                onClick={() => handleDelete(list._id)}
+                className=""
+                aria-label="Delete"
+              >
+                &times;
+              </button>
+              <button onClick={() => handlePrint(list)}
+                className="">
+                <img src="/print.svg" class="pl-2" style={{height: '1rem'}}></img>
+              </button>
+              </div>
+              
+   
+              <div className="flex items-center mb-4">
+                <h2 className="text-xl font-semibold text-gray-800 mr-8">
+                  {list.recipeName}
+                </h2>
+                <span className="text-sm text-gray-500">
+                  {formatDate(list.createdAt)}
+                </span>
+              </div>
+              
+              <ul className="divide-y divide-gray-200">
+                {list.items && list.items.map((item, index) => {
+                  console.log("Rendering item:", item);
+                  return (
+                    <li
+                      key={index}
+                      className="py-3 flex justify-between items-center"
+                    >
+                      <span className="text-gray-800">
+                        {item.ingredientName}
+                      </span>
+                      <span className="text-gray-600">
+                        {item.amount} {item.unit}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+  }
+
+  const handlePrint = (list) => {
+    // Define inline styles for the print window
+    const styles = `
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #ffffff;
+        color: #2b2929;
+        text-align: center;
+      }
+      
+      .printList {
+        background-color: white;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .printList h1 {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      
+      .printList-time {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+      }
+  
+      ul {
+        list-style-type: disc;
+        width: 60%;
+        margin: 0 auto;
+        padding-left: 40px;
+        box-sizing: border-box;
+      }
+      
+      .list-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding-left: 10px;
+      }
+      
+      .list-item span {
+        font-size: 14px;
+      }
+    `;
+  
+    // Create a hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  
+    // Build the HTML content
+    const content = `
+      <html>
+        <head>
+          <title>Print Shopping List</title>
+          <style>${styles}</style>
+        </head>
+        <body>
+          <div class="printList">
+            <h1>${escapeHtml(list.recipeName)}</h1>
+            <div class="printList-time">
+              Created: ${new Date(list.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </div>
+            <hr/>
+            <br/>
+            <ul>
+              ${list.items
+                .map(
+                  (item) => `
+                    <li class="list-item">
+                      <span>${escapeHtml(item.ingredientName)}</span>
+                      <span>${escapeHtml(item.amount)} ${escapeHtml(item.unit)}</span>
+                    </li>
+                  `
+                )
+                .join("")}
+            </ul>
+          </div>
+        </body>
+      </html>
+    `;
+  
+    // Helper function to escape HTML special characters
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  
+    // Write content to iframe and print
+    iframe.contentDocument.write(content);
+    iframe.contentDocument.close();
+    
+    // Wait for styles to load
+    setTimeout(() => {
+      iframe.contentWindow.print();
+      // Remove iframe after printing
+      document.body.removeChild(iframe);
+    }, 250);
+  };
+  
+
   useEffect(() => {
     const fetchShoppingLists = async () => {
       const user = localStorage.getItem('user') ? 
@@ -114,53 +277,11 @@ export default function ShoppingList() {
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8">Shopping List</h1>
-      <div className="space-y-8">
+      <div className="oneList space-y-8">
         {shoppingLists.map((list) => {
           console.log("Rendering list:", list);
           return (
-            <div
-              key={list._id}
-              className="bg-white rounded-lg shadow-md p-6 relative"
-            >
-              <button
-                onClick={() => handleDelete(list._id)}
-                className="absolute right-2 top-2 text-red-500 font-bold text-3xl cursor-pointer group z-10"
-                aria-label="Delete"
-              >
-                &times;
-                <span className="absolute top-full right-6 transform translate-x-1/2 mt-1 w-max bg-gray-800 text-white text-xs font-semibold px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Remove
-                </span>
-              </button>
-   
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">
-                  {list.recipeName}
-                </h2>
-                <span className="text-sm text-gray-500">
-                  {formatDate(list.createdAt)}
-                </span>
-              </div>
-              
-              <ul className="divide-y divide-gray-200">
-                {list.items && list.items.map((item, index) => {
-                  console.log("Rendering item:", item);
-                  return (
-                    <li
-                      key={index}
-                      className="py-3 flex justify-between items-center"
-                    >
-                      <span className="text-gray-800">
-                        {item.ingredientName}
-                      </span>
-                      <span className="text-gray-600">
-                        {item.amount} {item.unit}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+            listDisplay(list)
           );
         })}
       </div>

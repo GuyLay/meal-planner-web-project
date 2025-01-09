@@ -64,6 +64,10 @@ const Header = () => {
     router.push("/");
   };
 
+  const printPage = () => {
+    window.print();
+  }
+
   return (
     <header className="py-4 shadow-md transition-colors duration-200">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
