@@ -36,6 +36,14 @@ export default function RecipeCreator() {
         ]);
     };
 
+    const fixNumber = (value) => {
+        // cuting 0 in start
+        if (value === 0) return value;
+        if (value[0] === "0") {
+            value = value.slice(1);
+        }
+    }
+
     const removeIngredient = (index) => {
         if (index === 0 && ingredients.length === 1) {
             alert("Recipe must have at least one ingredient");
@@ -212,7 +220,7 @@ export default function RecipeCreator() {
                                 min="0"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="Hours"
-                                value={makingTime.hours}
+                                value={fixNumber(makingTime.hours)}
                                 onChange={(e) =>
                                     setMakingTime({ ...makingTime, hours: e.target.value })
                                 }
@@ -222,7 +230,7 @@ export default function RecipeCreator() {
                                 min="0"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="Minutes"
-                                value={makingTime.minutes}
+                                value={fixNumber(makingTime.minutes)}
                                 onChange={(e) =>
                                     setMakingTime({ ...makingTime, minutes: e.target.value })
                                 }
@@ -252,7 +260,7 @@ export default function RecipeCreator() {
                                         type="number"
                                         className="bg-gray-50 border w-1/4 border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="Amount"
-                                        value={ingredient.amount}
+                                        value={fixNumber(ingredient.amount)}
                                         onChange={(e) =>
                                             handleIngredientChange(index, "amount", e.target.value)
                                         }
@@ -345,7 +353,7 @@ export default function RecipeCreator() {
                                         type="number"
                                         min="0"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                        value={nutrition[field]}
+                                        value={fixNumber(nutrition[field])}
                                         onChange={(e) =>
                                             handleNutritionChange(field, e.target.value)
                                         }
