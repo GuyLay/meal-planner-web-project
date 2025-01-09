@@ -49,9 +49,11 @@ export default function Saved() {
     }
   };
 
-  if (loading) {
-    return <p>Loading...</p>; // Show loading text while fetching data
-  }
+  if (loading) return (
+    <div className="container flex justify-center items-center mx-auto py-8" style={{ height: '60vh' }}>
+      <img src="/loading.gif" alt="loading" style={{ height: '70%', width: '70%' }} />
+    </div>
+  );
 
   if (savedRecipes.length === 0) {
     return (

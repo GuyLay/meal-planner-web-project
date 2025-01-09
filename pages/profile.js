@@ -53,7 +53,11 @@ export default function Profile() {
     fetchUserRecipes();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return (
+    <div className="container flex justify-center items-center mx-auto py-8" style={{ height: '60vh' }}>
+      <img src="/loading.gif" alt="loading" style={{ height: '70%', width: '70%' }} />
+    </div>
+  );
   if (!user) return <div>Please log in to view your profile</div>;
 
   return (

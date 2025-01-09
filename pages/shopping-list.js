@@ -96,7 +96,11 @@ export default function ShoppingList() {
     }
   };
 
-  if (loading) return <div className="text-center py-8">Loading...</div>;
+  if (loading) return (
+    <div className="container flex justify-center items-center mx-auto py-8" style={{ height: '60vh' }}>
+      <img src="/loading.gif" alt="loading" style={{ height: '70%', width: '70%' }} />
+    </div>
+  );
 
   if (shoppingLists.length === 0) {
     return (

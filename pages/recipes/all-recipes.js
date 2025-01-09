@@ -31,7 +31,11 @@ export default function AllRecipesPage() {
     fetchRecipes();
   }, [selectedCategory]);
 
-  if (loading) return <p>Loading recipes...</p>;
+  if (loading) return (
+    <div className="container flex justify-center items-center mx-auto py-8" style={{ height: '60vh' }}>
+      <img src="/loading.gif" alt="loading" style={{ height: '70%', width: '70%' }} />
+    </div>
+  );
   if (error) return <p>Error: {error}</p>;
 
   return (

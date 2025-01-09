@@ -120,7 +120,11 @@ export default function RecipeDetailPage() {
     }
   };
 
-  if (loading) return <p>Loading recipe...</p>;
+  if (loading) return (
+    <div className="container flex justify-center items-center mx-auto py-8" style={{ height: '60vh' }}>
+      <img src="/loading.gif" alt="loading" style={{ height: '70%', width: '70%' }} />
+    </div>
+  );
   if (error) return <p>Error: {error}</p>;
   if (!recipe) return <p>Recipe not found</p>;
 
