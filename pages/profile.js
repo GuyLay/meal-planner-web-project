@@ -7,6 +7,7 @@ export default function Profile() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [recipesLoading, setRecipesLoading] = useState(true);
   const [userRecipes, setUserRecipes] = useState([]);
 
   const handleDeleteRecipe = async (recipeId) => {
@@ -43,6 +44,7 @@ export default function Profile() {
         const response = await fetch(`/api/recipes/user-recipes?email=${JSON.parse(userInfo).email}`);
         if (response.ok) {
           const data = await response.json();
+          setRecipesLoading(false);
           setUserRecipes(data);
         }
       } catch (error) {
@@ -112,7 +114,10 @@ export default function Profile() {
             />
           ))}
         </div>
-        {userRecipes.length === 0 && (
+        {recipesLoading && (<div className="container flex justify-center items-center mx-auto py-8" style={{ height: '40vh' }}>
+      <img src="/loading.gif" alt="loading" style={{ height: '70%', width: '70%' }} />
+        </div>)}
+        {(!recipesLoading && (userRecipes.length === 0)) && (
           <p className="text-center text-gray-500">No recipes created yet</p>
         )}
       </div>
